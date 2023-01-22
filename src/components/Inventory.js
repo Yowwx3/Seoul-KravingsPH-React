@@ -23,7 +23,7 @@ function Inventory() {
             <th>Unit Price</th>
             <th>Description</th>
             <th>Stocks</th>
-            <th>Units Ordered</th>
+            <th>Ordered</th>
             <th>
               {" "}
               <Link to="/AddInventory" className="crud-buttons">
@@ -41,8 +41,14 @@ function Inventory() {
               <td>{product.units_in_stock}</td>
               <td>{product.units_on_order}</td>
               <td>
-                <Link to={"product/${product.id}/edit"}>Edit</Link>&nbsp;
-                <button className="crud-buttons">Delete</button>
+                <Link
+                  to={"product/${product.id}/edit"}
+                  className="crud-buttons"
+                >
+                  Edit
+                </Link>
+                &nbsp;
+                <button className="crud-buttons-delete">Delete</button>
               </td>
             </tr>
           ))}

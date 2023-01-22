@@ -126,6 +126,14 @@ td {
   text-decoration: none;
   cursor: pointer;
 }
+.crud-buttons-delete {
+  background-color: #eb5d5d;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 .crud-buttons:hover {
   background-color: #5e6de3;

@@ -14,6 +14,14 @@ function Inventory() {
       setProducts(response.data);
     });
   }
+  const deleteProduct = (product_id) => {
+    axios
+      .delete(`http://localhost/seoulkravingsAPI/?product_id=${product_id}`)
+      .then(function (response) {
+        console.log(response.data);
+        getProducts();
+      });
+  };
   return (
     <div className="InventoryList">
       <table>
@@ -42,13 +50,18 @@ function Inventory() {
               <td>{product.units_on_order}</td>
               <td>
                 <Link
-                  to={"product/${product.id}/edit"}
+                  to={`/Inventory/${product.product_id}`}
                   className="crud-buttons"
                 >
                   Edit
                 </Link>
                 &nbsp;
-                <button className="crud-buttons-delete">Delete</button>
+                <button
+                  onClick={() => deleteProduct(product.product_id)}
+                  className="crud-buttons-delete"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

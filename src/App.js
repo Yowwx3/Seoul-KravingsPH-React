@@ -12,8 +12,9 @@ import Admin from "./components/Admin";
 import AddInventory from "./components/AddInventory";
 import Sales from "./components/Sales";
 import Inventory from "./components/Inventory";
+import EditInventory from "./components/EditInventory";
 import Insights from "./components/Insights";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/Register" element={<Register />} />
           <Route path="/Sales" element={<Sales />} />
           <Route path="/Inventory" element={<Inventory />} />
+          <Route path="/Inventory/:product_id" element={<EditInventory />} />
           <Route path="/AddInventory" element={<AddInventory />} />
           <Route path="/Insights" element={<Insights />} />
         </Routes>

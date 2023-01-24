@@ -135,6 +135,10 @@ td {
   cursor: pointer;
 }
 
+.crud-buttons-delete:hover {
+  background-color: #cb3939;
+}
+
 .crud-buttons:hover {
   background-color: #5e6de3;
 }

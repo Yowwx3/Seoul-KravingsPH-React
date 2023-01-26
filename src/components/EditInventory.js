@@ -70,6 +70,22 @@ function AddInventory() {
               name="unit_price"
               onChange={handleChange}
             ></input>
+
+            <h3>Units in stock</h3>
+            <input
+              value={inputs.units_in_stock}
+              type="number"
+              name="units_in_stock"
+              onChange={handleChange}
+            ></input>
+            <h3>Units on order</h3>
+            <input
+              value={inputs.units_on_order}
+              type="number"
+              name="units_on_order"
+              onChange={handleChange}
+            ></input>
+
             <input type="submit" value="Save"></input>
           </form>
         </div>

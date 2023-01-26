@@ -46,7 +46,9 @@ function Inventory() {
               <td>{product.product_name}</td>
               <td>{product.unit_price}</td>
               <td>{product.description}</td>
-              <td>{product.units_in_stock}</td>
+              <td className={product.units_in_stock < 5 ? "low-stock" : ""}>
+                {product.units_in_stock}
+              </td>
               <td>{product.units_on_order}</td>
               <td>
                 <Link

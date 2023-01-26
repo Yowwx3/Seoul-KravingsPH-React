@@ -29,7 +29,7 @@ section {
   opacity: 0.9;
   position: relative;
   width: 60%;
-  height: 600px;
+  height: 700px;
   background: #fff;
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -103,6 +103,7 @@ input::-webkit-inner-spin-button {
 
 .InventoryList {
   background-color: rgba(255, 255, 255, 0.9);
+  width: 100%;
 }
 
 .InventoryList table {
@@ -141,4 +142,9 @@ td {
 
 .crud-buttons:hover {
   background-color: #5e6de3;
+}
+
+.low-stock {
+  color: red;
+  font-weight: bold;
 }

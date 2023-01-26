@@ -6,7 +6,7 @@ function Login() {
       <div className="container">
         <div class="user signinBx"></div>
         <div class="formBx">
-          <form className="login-form" action="" onsubmit="return false;">
+          <form className="login-form" action="" onSubmit="return false;">
             <h2>Satisfy your K-Ravings!</h2>
             <h3>Login</h3>
             <input type="email" name="" placeholder="Email" />

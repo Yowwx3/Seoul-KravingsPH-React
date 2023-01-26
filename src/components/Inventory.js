@@ -57,7 +57,15 @@ function Inventory() {
                 </Link>
                 &nbsp;
                 <button
-                  onClick={() => deleteProduct(product.product_id)}
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Are you sure you want to delete this product?"
+                      )
+                    ) {
+                      deleteProduct(product.product_id);
+                    }
+                  }}
                   className="crud-buttons-delete"
                 >
                   Delete

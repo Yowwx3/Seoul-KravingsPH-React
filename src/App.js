@@ -1,6 +1,7 @@
 import "./styles/Main.css";
 import "./styles/Login.css";
 import "./styles/Admin.css";
+import "./styles/products.css";
 import React from "react";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
@@ -15,6 +16,7 @@ import Inventory from "./components/Inventory";
 import EditInventory from "./components/EditInventory";
 import Insights from "./components/Insights";
 import { Route, Routes, useParams } from "react-router-dom";
+import PrivacyNotice from "./components/PrivacyNotice";
 
 function App() {
   return (
@@ -40,6 +42,7 @@ function App() {
           <Route path="/Inventory/:product_id" element={<EditInventory />} />
           <Route path="/AddInventory" element={<AddInventory />} />
           <Route path="/Insights" element={<Insights />} />
+          <Route path="/dataPrivacy" element={<PrivacyNotice />} />
         </Routes>
       </React.Fragment>
     </div>

@@ -36,18 +36,21 @@ function AddInventory() {
               type="text"
               name="product_name"
               onChange={handleChange}
+              required
             ></input>
             <h3>Description</h3>
             <input
               type="text"
               name="description"
               onChange={handleChange}
+              required
             ></input>
             <h3>Price</h3>
             <input
               type="number"
               name="unit_price"
               onChange={handleChange}
+              required
             ></input>
             <input type="submit" value="Save"></input>
           </form>

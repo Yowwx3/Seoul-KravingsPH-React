@@ -57,7 +57,7 @@ function AddInventory() {
 
   function getProduct() {
     axios
-      .get(`http://test1domain.infinityfreeapp.com/?product_id=${product_id}`)
+      .get(`http://localhost/seoulkravingsAPI/?product_id=${product_id}`)
       .then(function (response) {
         console.log(response.data);
         setInputs(response.data);
@@ -65,7 +65,7 @@ function AddInventory() {
   }
 
   axios
-    .get(`http://test1domain.infinityfreeapp.com/?product_id=${product_id}`)
+    .get(`http://localhost/seoulkravingsAPI/?product_id=${product_id}`)
     .then((response) => {
       setImageUrl(response.data.image);
     })

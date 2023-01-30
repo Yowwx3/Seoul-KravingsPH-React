@@ -18,7 +18,7 @@ function AddInventory() {
     event.preventDefault();
 
     axios
-      .post("http://localhost/seoulkravingsAPI/", inputs)
+      .post("http://test1domain.infinityfreeapp.com//seoulkravingsAPI/", inputs)
       .then(function (response) {
         console.log(response.data);
         navigate("/Inventory");

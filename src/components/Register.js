@@ -23,7 +23,10 @@ function Register() {
     } else {
       // Send the data to the server
       axios
-        .post("http://localhost/seoulkravingsAPI/Account.php/", inputs)
+        .post(
+          "http://test1domain.infinityfreeapp.com/seoulkravingsAPI/Account.php/",
+          inputs
+        )
         .then(function (response) {
           console.log(response.data);
           if (response.data.status === 1) {

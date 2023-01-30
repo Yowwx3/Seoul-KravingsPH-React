@@ -9,14 +9,18 @@ function Inventory() {
   }, []);
 
   function getProducts() {
-    axios.get("http://localhost/seoulkravingsAPI/").then(function (response) {
-      console.log(response.data);
-      setProducts(response.data);
-    });
+    axios
+      .get("http://test1domain.infinityfreeapp.com/seoulkravingsAPI/")
+      .then(function (response) {
+        console.log(response.data);
+        setProducts(response.data);
+      });
   }
   const deleteProduct = (product_id) => {
     axios
-      .delete(`http://localhost/seoulkravingsAPI/?product_id=${product_id}`)
+      .delete(
+        `http://test1domain.infinityfreeapp.com/seoulkravingsAPI/?product_id=${product_id}`
+      )
       .then(function (response) {
         console.log(response.data);
         getProducts();

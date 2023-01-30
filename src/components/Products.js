@@ -28,7 +28,7 @@ function Products() {
           <div key={product.product_name}>
             <img
               onClick={() => handleClick(product.id)}
-              src={`http://localhost/seoulkravingsAPI/${product.image}`}
+              src={`http://test1domain.infinityfreeapp.com/seoulkravingsAPI/${product.image}`}
               alt={product.product_name}
             />
             <h3>

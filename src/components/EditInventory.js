@@ -7,8 +7,50 @@ function AddInventory() {
 
   const [inputs, setInputs] = useState([]);
 
-  const { product_id } = useParams();
+  const [imageUrl, setImageUrl] = useState(null);
 
+  const { product_id } = useParams();
+  const [imagePreview, setImagePreview] = useState(null);
+  const [error, setError] = useState(null);
+  const [file, setFile] = useState(null);
+
+  const handleImageChange = (event) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setImagePreview(e.target.result);
+    };
+    reader.readAsDataURL(event.target.files[0]);
+    setFile(event.target.files[0]);
+  };
+
+  const handleRemoveImage = () => {
+    setImagePreview(null);
+    setFile(null);
+  };
+
+  const handleUpload = () => {
+    const formData = new FormData();
+    formData.append("image", file, file.name);
+    formData.append("product_id", product_id);
+
+    axios
+      .post(`http://localhost/seoulkravingsAPI/imageupload.php`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.status == 0) {
+          alert(response.data.message);
+        }
+      })
+      .catch((error) => {
+        setError(error);
+      });
+    setImagePreview(null);
+    setFile(null);
+  };
   useEffect(() => {
     getProduct();
   }, []);
@@ -21,6 +63,15 @@ function AddInventory() {
         setInputs(response.data);
       });
   }
+
+  axios
+    .get(`http://localhost/seoulkravingsAPI/?product_id=${product_id}`)
+    .then((response) => {
+      setImageUrl(response.data.image);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -46,8 +97,30 @@ function AddInventory() {
     <section>
       <div className="container-crud">
         <div className="formBx-crud">
-          <form onSubmit={handleSubmit}>
+          <div>
             <h2>Edit Product</h2>
+
+            <img
+              src={`http://localhost/seoulkravingsAPI/${imageUrl}`}
+              width="200"
+            />
+            {imagePreview ? (
+              <div>
+                <br />
+                <h5>Preview</h5> <br />
+                <img src={imagePreview} width="200" />
+                <br />
+                <button onClick={handleRemoveImage}>Change Image</button>
+              </div>
+            ) : (
+              <div>
+                <input type="file" onChange={handleImageChange} />
+              </div>
+            )}
+            {file && <button onClick={handleUpload}>Upload</button>}
+            {error && <div>{error.message}</div>}
+          </div>
+          <form onSubmit={handleSubmit}>
             <h3>Product Name</h3>
             <input
               value={inputs.product_name}

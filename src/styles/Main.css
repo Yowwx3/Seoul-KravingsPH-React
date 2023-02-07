@@ -50,20 +50,39 @@ p {
 }
 
 .about-us-container {
-  opacity: 0.9;
-  background: #fff;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+  background: #ffffffe2;
 }
 
-.greet-text {
-  font-size: large;
-  padding-left: 5%;
-  padding-top: 5%;
-}
 .tagline-text {
   font-size: 100px;
   padding-right: 40%;
   text-align: center;
+}
+.greet-text {
+  font-size: large;
+  padding-left: 5%;
+  padding-top: 5%;
+  animation: slideFadeIn 0.8s ease-in-out forwards;
+  opacity: 0;
+  transform: translateX(-10%);
+}
+
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.greet-text:hover {
+  cursor: default;
+}
+
+.tagline-text:hover {
+  cursor: default;
 }
 
 header {
@@ -116,14 +135,11 @@ nav {
 
 @media only screen and (max-width: 300px) {
   .about-us-container {
-    opacity: 0.9;
-    background: #fff;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
     height: 150vh;
   }
 }
 
-@media only screend and (max-width: 1920px) {
+@media only screen and (max-width: 1920px) {
   body {
     background-image: url(/src/images/wallpaper2.jpg);
     background-size: auto;

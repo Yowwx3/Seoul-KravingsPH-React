@@ -1,8 +1,14 @@
 import { FaBars, FaTimes } from "react-icons/fa";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import Cookie from "js-cookie";
 
 function Navbar() {
+  const token = Cookie.get("token");
+  const email = Cookie.get("email");
+  const username = Cookie.get("username");
+  const authCookie = Cookie.get("auth");
+
   const navRef = useRef();
   const showNavbar = () => {
     navRef.current.classList.toggle("responsive_nav");
@@ -23,9 +29,15 @@ function Navbar() {
         <Link to="/About Us" onClick={hideNavbar}>
           About Us
         </Link>
-        <Link to="/Login" onClick={hideNavbar}>
-          Log in
-        </Link>
+        {authCookie ? (
+          <Link to="/Profile" onClick={hideNavbar}>
+            Profile
+          </Link>
+        ) : (
+          <Link to="/Login" onClick={hideNavbar}>
+            Login
+          </Link>
+        )}
         <button className="nav-btn nav-close-btn" onClick={showNavbar}>
           <FaTimes />
         </button>

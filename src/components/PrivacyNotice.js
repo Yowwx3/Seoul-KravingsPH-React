@@ -11,9 +11,10 @@ const PrivacyNotice = () => {
         <h1>Data Privacy Notice</h1>
         <h3>
           We, at Seoul K-Ravings PH, are committed to protecting your personal
-          data in accordance with the Data Privacy Act of 2012. In this notice,
-          we will inform you of the types of personal data that we collect, how
-          we use it, and your rights in relation to your personal data.
+          data in accordance with the Data Privacy Act of 2012.
+          <br /> In this notice, we will inform you of the types of personal
+          data that we collect, how we use it, and your rights in relation to
+          your personal data.
         </h3>
         <p>Types of Personal Data We Collect</p>
         <ul>

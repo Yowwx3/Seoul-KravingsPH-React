@@ -5,15 +5,58 @@ import { useNavigate, useParams } from "react-router-dom";
 function AddInventory() {
   const navigate = useNavigate();
 
-  const [inputs, setInputs] = useState([]);
+  const [inputs, setInputs] = useState({
+    product_name: "",
+    description: "",
+    unit_price: "",
+    units_in_stock: "",
+    units_on_order: "",
+  });
 
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
 
   const { product_id } = useParams();
   const [imagePreview, setImagePreview] = useState(null);
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
 
+  axios
+    .get(`http://localhost/seoulkravingsAPI/?product_id=${product_id}`)
+    .then((response) => {
+      setImageUrl(response.data.image);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputs((values) => ({ ...values, [name]: value }));
+  };
+
+  function getProduct() {
+    axios
+      .get(`http://localhost/seoulkravingsAPI/?product_id=${product_id}`)
+      .then(function (response) {
+        console.log(response.data);
+        setInputs(response.data);
+      });
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios
+      .put(
+        `http://localhost/seoulkravingsAPI/?product_id=${product_id}`,
+        inputs
+      )
+      .then(function (response) {
+        console.log(response.data);
+        navigate("/Inventory");
+      });
+  };
   const handleImageChange = (event) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -55,44 +98,6 @@ function AddInventory() {
     getProduct();
   }, []);
 
-  function getProduct() {
-    axios
-      .get(`http://localhost/seoulkravingsAPI/?product_id=${product_id}`)
-      .then(function (response) {
-        console.log(response.data);
-        setInputs(response.data);
-      });
-  }
-
-  axios
-    .get(`http://localhost/seoulkravingsAPI/?product_id=${product_id}`)
-    .then((response) => {
-      setImageUrl(response.data.image);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    axios
-      .put(
-        `http://localhost/seoulkravingsAPI/?product_id=${product_id}`,
-        inputs
-      )
-      .then(function (response) {
-        console.log(response.data);
-        navigate("/Inventory");
-      });
-  };
-
   return (
     <section>
       <div className="container-crud">
@@ -100,10 +105,12 @@ function AddInventory() {
           <div>
             <h2>Edit Product</h2>
 
-            <img
-              src={`http://localhost/seoulkravingsAPI/${imageUrl}`}
-              width="200"
-            />
+            {product_id && (
+              <img
+                src={`http://localhost/seoulkravingsAPI/${imageUrl}`}
+                width="200"
+              />
+            )}
             {imagePreview ? (
               <div>
                 <br />

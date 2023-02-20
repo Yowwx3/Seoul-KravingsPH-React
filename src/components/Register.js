@@ -87,10 +87,11 @@ function Register() {
               </Link>{" "}
               and consent to the given information being used.
             </label>
+
+            <input type="submit" value="Sign up" />
             <p className="signup">
               Already have an account? <Link to="/Login">Signin</Link>
             </p>
-            <input type="submit" value="Sign up" />
           </form>
         </div>
       </div>

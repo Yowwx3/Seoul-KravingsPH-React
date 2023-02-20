@@ -51,6 +51,8 @@ p {
 
 .about-us-container {
   background: #ffffffe2;
+  opacity: 0; /* Set initial opacity to 0 */
+  animation: fadeIn 0.5s ease-in-out forwards; /* Add animation */
 }
 
 .tagline-text {
@@ -100,10 +102,12 @@ nav a {
   margin: 0 2rem;
   color: var(--textColor);
   text-decoration: none;
+  transition: all 0.3s ease-in-out;
 }
 
 nav a:hover {
   color: var(--secondaryColor);
+  transform: translateY(-2px);
 }
 
 header .nav-btn {
@@ -146,7 +150,7 @@ nav {
   }
 }
 
-@media only screen and (max-width: 1050px) {
+@media only screen and (max-width: 1165px) {
   header .nav-btn {
     visibility: visible;
     opacity: 1;

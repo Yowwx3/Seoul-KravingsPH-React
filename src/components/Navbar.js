@@ -30,9 +30,14 @@ function Navbar() {
           About Us
         </Link>
         {authCookie ? (
-          <Link to="/Profile" onClick={hideNavbar}>
-            Profile
-          </Link>
+          <>
+            <Link to="/Cart" onClick={hideNavbar}>
+              Cart
+            </Link>
+            <Link to="/Profile" onClick={hideNavbar}>
+              Profile
+            </Link>
+          </>
         ) : (
           <Link to="/Login" onClick={hideNavbar}>
             Login

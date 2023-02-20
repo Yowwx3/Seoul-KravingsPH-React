@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Profile() {
   function deleteAllCookies() {
     const cookies = document.cookie.split(";");
-
+    localStorage.removeItem("cart");
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i];
       const eqPos = cookie.indexOf("=");
@@ -15,6 +15,7 @@ function Profile() {
 
   return (
     <div className="profile">
+      <button>Change Password</button>
       <button onClick={deleteAllCookies}>Logout</button>
     </div>
   );

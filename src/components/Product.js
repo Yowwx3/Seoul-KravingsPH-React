@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "./Footer";
+import Cookie from "js-cookie";
 
 function Product() {
   const navigate = useNavigate();
   const { product_id } = useParams();
   const [product, setProduct] = useState({});
-  const [quantity, setQuantity] = useState(1);
+  const authCookie = Cookie.get("auth");
 
   useEffect(() => {
     axios
@@ -16,9 +17,23 @@ function Product() {
       .catch((err) => console.error(err));
   }, []);
 
-  const handleAddToCart = () => {
-    // Add logic for adding to cart here
-    console.log(`Adding ${quantity} of ${product.product_name} to cart`);
+  const handleAddToCart = (product_id) => {
+    if (!authCookie) {
+      navigate("/login");
+      return;
+    }
+    let cart = [];
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    if (!cart.includes(product_id)) {
+      cart.push(product_id);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      console.log(cart);
+      console.log(`Adding ${product.product_name} to cart`);
+    } else {
+      console.log("Product already in cart");
+    }
   };
 
   return (
@@ -43,34 +58,10 @@ function Product() {
               <div className="add-to-cart">
                 {product.units_in_stock > 0 ? (
                   <>
-                    <label htmlFor="quantity">Quantity: </label>
-                    <button
-                      onClick={() => setQuantity(Math.max(quantity - 1, 1))}
-                    >
-                      -
-                    </button>
-                    <input
-                      type="number"
-                      id="quantity"
-                      value={quantity}
-                      onChange={(e) =>
-                        setQuantity(
-                          Math.min(e.target.value, product.units_in_stock)
-                        )
-                      }
-                      max={product.units_in_stock}
-                    ></input>
-                    <button
-                      onClick={() =>
-                        setQuantity(
-                          Math.min(quantity + 1, product.units_in_stock)
-                        )
-                      }
-                    >
-                      +
-                    </button>
                     &nbsp;
-                    <button onClick={handleAddToCart}>Add to Cart</button>{" "}
+                    <button onClick={() => handleAddToCart(product.product_id)}>
+                      Add to Cart
+                    </button>
                     &nbsp;
                     <h4>{product.units_in_stock} pieces available</h4>
                   </>

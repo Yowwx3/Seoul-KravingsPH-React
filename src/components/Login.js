@@ -23,6 +23,7 @@ function Login() {
           Cookie.set("email", response.data.email);
           Cookie.set("username", response.data.name);
           Cookie.set("auth", response.data.auth);
+          Cookie.set("id", response.data.account_id);
           window.open("http://localhost:3000/", "_self");
         } else {
           console.log("Login failed: " + response.data.message);

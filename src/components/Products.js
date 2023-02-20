@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
+import Cookie from "js-cookie";
 
 function Products() {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [buttonValue, setButtonValue] = useState("Add to Cart");
+  const authCookie = Cookie.get("auth");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,16 +29,39 @@ function Products() {
     setSearchTerm(event.target.value);
   };
 
-  const filteredProducts = products.filter((product) =>
-    product.product_name.toLowerCase().includes(searchTerm.toLowerCase().trim())
-  );
+  const addToCart = (productId) => {
+    if (!authCookie) {
+      navigate("/login");
+      return;
+    }
+    let cart = [];
+    if (localStorage.getItem("cart")) {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    const selectedProduct = products.find(
+      (product) => product.product_id === productId
+    );
+    if (selectedProduct && !cart.includes(productId)) {
+      cart.push(productId);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      console.log(cart);
+      console.log(`Adding ${selectedProduct.product_name} to cart`);
+    } else {
+      console.log("Product already in cart");
+    }
+  };
 
-  const clearSearch = () => {
-    setSearchTerm("");
+  const startBounceAnimation = (event) => {
+    const button = event.target;
+    button.style.animation = "bounce 0.4s ease";
+
+    setTimeout(() => {
+      button.style.animation = "";
+    }, 500);
   };
 
   return (
-    <div>
+    <div className="product-list-container">
       <div className="search-container">
         <input
           type="text"
@@ -73,7 +100,14 @@ function Products() {
               </h3>
               <p>₱{product.unit_price}</p>
               {product.units_in_stock > 0 ? (
-                <input type="submit" value="Add to Cart"></input>
+                <input
+                  type="submit"
+                  onClick={(event) => {
+                    addToCart(product.product_id);
+                    startBounceAnimation(event);
+                  }}
+                  value={buttonValue}
+                ></input>
               ) : (
                 <p style={{ color: "red" }}>Out of Stock</p>
               )}

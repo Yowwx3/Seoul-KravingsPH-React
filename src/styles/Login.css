@@ -16,6 +16,17 @@ section {
   background: #fff;
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  animation: slide-in 0.5s ease-in-out forwards;
+  transform: translateY(-5px);
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(-5px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 .login-form {
@@ -84,6 +95,9 @@ section .container .formBx form .signup a {
   text-decoration: none;
   color: #677eff;
 }
+section .container .formBx form .signup a:hover {
+  color: #11227e;
+}
 
 label.data-privacy-checkbox input[type="checkbox"] {
   width: 15px; /* adjust as needed */
@@ -123,6 +137,8 @@ section .container .formBx form input[type="checkbox"] {
 }
 
 .profile {
+  opacity: 0; /* Set initial opacity to 0 */
+  animation: fadeIn 0.5s ease-in-out forwards; /* Add animation */
   display: flex;
   align-items: center;
   justify-content: center;

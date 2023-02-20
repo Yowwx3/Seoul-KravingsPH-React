@@ -1,3 +1,17 @@
+.product-list-container {
+  opacity: 0; /* Set initial opacity to 0 */
+  animation: fadeIn 0.5s ease-in-out forwards; /* Add animation */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .product-list {
   display: flex;
   flex-wrap: wrap;
@@ -37,6 +51,33 @@
 
 .product-list input[type="submit"] {
   background-color: #98fb98;
+  border: 1px solid #3e8e3e;
+  border-radius: 4px;
+  color: #183418;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 5% 0;
+  transition: all 0.5s ease;
+}
+
+.product-list input[type="submit"].bouncing {
+  animation: bounce 1s ease;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.product-list input[type="submit"]:hover {
+  background-color: #cdfacd;
   border: 1px solid #3e8e3e;
   border-radius: 4px;
   color: #183418;
@@ -85,16 +126,19 @@
 }
 
 .add-to-cart button {
-  background-color: #b16132;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
+  background-color: #98fb98;
+  border: 1px solid #3e8e3e;
+  border-radius: 4px;
+  color: #183418;
+  padding: 8px 16px;
+  font-size: 14px;
   cursor: pointer;
+  transition: all 0.5s ease;
+  margin: 5% 0;
 }
 
 .add-to-cart button:hover {
-  background-color: #ca7645;
+  background-color: #cdfacd;
 }
 
 .product img {
@@ -159,5 +203,311 @@
 
   .product h2 {
     margin-bottom: 0;
+  }
+}
+
+.Cart-body {
+  margin: 10px 0;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0; /* Set initial opacity to 0 */
+  animation: fadeIn 0.5s ease-in-out forwards; /* Add animation */
+}
+.Cart-Container {
+  padding: 25px 0;
+  width: 70%;
+  height: 85%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 25px 40px #b3b3b333;
+}
+.Header {
+  margin: auto;
+  width: 90%;
+  height: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.Heading {
+  font-size: 20px;
+  font-family: ‘Open Sans’;
+  font-weight: 700;
+  color: #2f3841;
+}
+.Action {
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.Action:hover {
+  color: #e44c4c;
+  border-bottom: 1px solid #e44c4c;
+  transform: translateY(-2px);
+}
+
+.Cart-Items {
+  margin: auto;
+  width: 90%;
+  height: 30%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: left;
+  min-height: 70vh;
+  padding: 5px 0;
+}
+
+.Cart_Items-2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  padding: 15px 0;
+  align-items: flex-start;
+}
+
+.quantitybox {
+  width: 90px;
+  height: 22px;
+  text-align: center;
+}
+.quantitybox:focus {
+  outline: none;
+  border: 2px solid #007bff;
+}
+
+.unit-total {
+  width: 120px;
+}
+
+.unit-remove {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.unit-remove:hover {
+  color: #e44c4c;
+  border-bottom: 1px solid #e44c4c;
+  transform: translateY(-2px);
+}
+
+.Cart-Price {
+  width: 80px;
+  text-align: center;
+}
+
+.Cart-Image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.cart-stock {
+  color: #b16132;
+}
+
+.cart-name {
+  font-size: 18px;
+}
+
+.Cart-Total-Container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.Cart-Total-Container-Row {
+  display: flex;
+  flex-direction: row;
+}
+
+.Cart-Submit {
+  background-color: #98fb98;
+  border: 1px solid #3e8e3e;
+  border-radius: 4px;
+  color: #183418;
+  padding: 4px 30px;
+  margin-left: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.Cart-Submit:hover {
+  background-color: #cdfacd;
+  color: #736599;
+}
+
+.Cart-Submit2 {
+  background-color: #98fb98;
+  border: 1px solid #3e8e3e;
+  border-radius: 4px;
+  color: #183418;
+  padding: 4px 30px;
+  margin: 10px 0;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.Cart-Submit2:hover {
+  background-color: #cdfacd;
+  color: #736599;
+}
+
+.Gcash-Submit {
+  background-color: #98e1fb;
+  border: 1px solid #487e91;
+  border-radius: 4px;
+  color: #183418;
+  padding: 4px 30px;
+  margin: 10px 0;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: flex;
+  justify-content: space-around;
+}
+.Gcash-Submit:hover {
+  background-color: #c3ecfb;
+  color: #736599;
+}
+
+.payment-method-img {
+  margin: 4px 5px;
+  width: 90px;
+}
+
+.GCash-QR {
+  margin: 4px 5px;
+  width: 250px;
+}
+
+.gcash-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Cart-Item-Details {
+  display: flex;
+  margin: 5px 0;
+  justify-content: space-between;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.alt-message-cart {
+  text-align: center;
+  font-size: 40px;
+  padding-bottom: 30px;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+}
+
+.alt-message-cart:hover {
+  animation: pulse 1s infinite;
+  color: #b16132;
+}
+
+.Address-Form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.Address-Form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.Address-Form input {
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.Address-Form input:focus {
+  outline: none;
+  box-shadow: 0px 0px 5px #ccc;
+}
+
+.Address-Form input[type="submit"] {
+  background-color: #0099ff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.Address-Form input[type="submit"]:hover {
+  background-color: #0088cc;
+}
+
+.Cart-Submit[disabled] {
+  background-color: #ddd; /* Grey */
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.Cart-Submit[disabled]:hover:after {
+  content: "Fill out the address form";
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background-color: #555;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
   }
 }

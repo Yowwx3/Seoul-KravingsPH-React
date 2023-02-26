@@ -7,6 +7,7 @@ function Orders() {
 
   const [orders, setOrders] = useState([]);
   const [selectedImage, setSelectedImage] = useState("");
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   useEffect(() => {
     axios
@@ -20,8 +21,9 @@ function Orders() {
 
   console.log("Orders:", orders);
 
-  const handleImageClick = (paymentProof) => {
+  const handleImageClick = (paymentProof, event) => {
     setSelectedImage(paymentProof);
+    event.stopPropagation();
   };
 
   const handleCloseModal = () => {
@@ -46,34 +48,102 @@ function Orders() {
     navigate(`/Orders/${order_id}`);
   };
 
+  const handleFilterClick = (filter) => {
+    setSelectedFilter(filter);
+  };
+
+  let filteredOrders = orders;
+  if (selectedFilter === "Processing") {
+    filteredOrders = filteredOrders.filter(
+      (order) => order.status === "Processing"
+    );
+  } else if (selectedFilter === "Shipped") {
+    filteredOrders = filteredOrders.filter(
+      (order) => order.status === "Shipped"
+    );
+  } else if (selectedFilter === "Delayed") {
+    filteredOrders = filteredOrders.filter(
+      (order) => order.status === "Delayed"
+    );
+  }
+
+  const handleClearFilter = () => {
+    setSelectedFilter("");
+  };
+
   return (
     <div className="orders-container">
-      <h1>Orders</h1>
+      {selectedFilter ? (
+        <h1>Orders - {selectedFilter}</h1>
+      ) : (
+        <h1>Orders - All</h1>
+      )}
+      <div className="orders-filter">
+        <h3
+          className={selectedFilter === "" ? "active-filter" : ""}
+          onClick={() => handleClearFilter()}
+        >
+          All Orders
+        </h3>
+        <h3
+          className={selectedFilter === "Processing" ? "active-filter" : ""}
+          onClick={() => handleFilterClick("Processing")}
+        >
+          Processing
+        </h3>
+        <h3
+          className={selectedFilter === "Shipped" ? "active-filter" : ""}
+          onClick={() => handleFilterClick("Shipped")}
+        >
+          Shipped
+        </h3>
+        <h3
+          className={selectedFilter === "Delayed" ? "active-filter" : ""}
+          onClick={() => handleFilterClick("Delayed")}
+        >
+          Delayed
+        </h3>
+        <h3
+          onClick={() => navigate("/Order-Canceled")}
+          className="cancel-filter"
+        >
+          Canceled
+        </h3>
+      </div>
+
       {selectedImage && <Modal />}
       <ul>
-        {orders.map((order) => (
-          <li
-            key={order.order_id}
-            onClick={() => handleDetails(order.order_id)}
-          >
-            <div>
-              {" "}
-              <p>Order ID: {order.order_id}</p>
-              <p>Address ID: {order.address_id}</p>
-              <p>Status: {order.status}</p>
-              <p>Total: ₱{order.total}</p>
-              <p>
-                Order Date: {new Date(order.created_at).toLocaleDateString()}
-              </p>
-            </div>
-            <img
-              className="payment-proof-img"
-              src={`http://localhost/seoulkravingsAPI/${order.payment_proof}`}
-              alt="Payment Proof"
-              onClick={() => handleImageClick(order.payment_proof)}
-            />
-          </li>
-        ))}
+        {filteredOrders
+          .filter(
+            (order) =>
+              order.status !== "Completed" && order.status !== "Canceled"
+          )
+
+          .map((order) => (
+            <li
+              key={order.order_id}
+              onClick={() => handleDetails(order.order_id)}
+            >
+              <div>
+                {" "}
+                <p>Order ID: {order.order_id}</p>
+                <p>Email: {order.email}</p>
+                <p>Status: {order.status}</p>
+                <p>Total: ₱{order.total}</p>
+                <p>
+                  Order Date: {new Date(order.created_at).toLocaleDateString()}
+                </p>
+              </div>
+              <img
+                className="payment-proof-img"
+                src={`http://localhost/seoulkravingsAPI/${order.payment_proof}`}
+                alt="Payment Proof"
+                onClick={(event) =>
+                  handleImageClick(order.payment_proof, event)
+                }
+              />
+            </li>
+          ))}
       </ul>
     </div>
   );

@@ -267,6 +267,7 @@
   align-items: left;
   padding: 15px 0;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .quantitybox {
@@ -398,6 +399,7 @@
   display: flex;
   margin: 5px 0;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .modal {
@@ -509,5 +511,14 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  .Cart-Container {
+    width: 100%;
+  }
+  .Cart-Container {
+    font-size: small;
   }
 }

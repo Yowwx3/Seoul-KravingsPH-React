@@ -60,11 +60,13 @@ const Checkout = () => {
     cart.includes(product.product_id)
   );
 
-  const total = filteredProducts.reduce(
-    (acc, product) =>
-      60 + acc + product.unit_price * (quantities[product.product_id] || 1),
-    0
-  );
+  const total =
+    60 +
+    filteredProducts.reduce(
+      (acc, product) =>
+        acc + product.unit_price * (quantities[product.product_id] || 1),
+      0
+    );
 
   //gcash
   const handleGcashSubmitOrder = () => {
@@ -263,7 +265,7 @@ const Checkout = () => {
               </div>
             )}{" "}
             <h3 className="Cart-Total">
-              Shipping: <span style={{ color: "red" }}>₱60</span>
+              Shipping Fee: <span style={{ color: "red" }}>₱60</span>
             </h3>
             <h2 className="Cart-Total">
               Total: <span style={{ color: "red" }}>₱{total}</span>

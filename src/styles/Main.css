@@ -211,3 +211,6 @@ nav {
     font-size: 40px;
   }
 }
+.App {
+  min-height: 120vh; /* set minimum height to the viewport height */
+}

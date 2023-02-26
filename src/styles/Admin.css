@@ -120,17 +120,29 @@ input::-webkit-inner-spin-button {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
+.InventoryList div {
+  padding: 10px 20px;
+  padding-bottom: 15px;
+}
+
 .InventoryList table {
-  margin: 1% 0;
+  margin: 5px auto;
   width: 100%;
   border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.834);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.549);
+  border-radius: 7px;
 }
 
 .InventoryList th,
 td {
-  padding: 1.5% 0;
+  padding: 10px 0;
   text-align: center;
   border-bottom: 1px solid #ddd;
+}
+
+.InventoryList th {
+  padding: 15px 0;
 }
 
 .crud-buttons {
@@ -194,5 +206,8 @@ td {
   }
   .InventoryList table {
     font-size: x-small;
+  }
+  .admin-header {
+    font-size: larger;
   }
 }

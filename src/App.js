@@ -15,6 +15,7 @@ import Profile from "./components/Profile";
 import Admin from "./components/Admin";
 import AddInventory from "./components/AddInventory";
 import Sales from "./components/Sales";
+import SalesDetails from "./components/SalesDetails";
 import Inventory from "./components/Inventory";
 import EditInventory from "./components/EditInventory";
 import Insights from "./components/Insights";
@@ -27,6 +28,7 @@ import { HmacSHA256 } from "crypto-js";
 import OrderSuccess from "./components/OrderSuccess";
 import Orders from "./components/Orders";
 import OrderDetails from "./components/OrderDetails";
+import Cancel from "./components/Cancel";
 
 function App() {
   const email = Cookie.get("email");
@@ -66,6 +68,7 @@ function App() {
           {authCookie === "1" && (
             <>
               <Route path="/Sales" element={<Sales />} />
+              <Route path="/Sales/:order_id" element={<SalesDetails />} />
               <Route path="/Inventory" element={<Inventory />} />
               <Route
                 path="/Inventory/:product_id"
@@ -74,6 +77,7 @@ function App() {
               <Route path="/AddInventory" element={<AddInventory />} />
               <Route path="/Orders" element={<Orders />} />
               <Route path="/Orders/:order_id" element={<OrderDetails />} />
+              <Route path="/Order-Canceled" element={<Cancel />} />
               <Route path="/Insights" element={<Insights />} />
             </>
           )}

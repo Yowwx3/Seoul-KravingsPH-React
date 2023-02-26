@@ -10,7 +10,6 @@ function AddInventory() {
     description: "",
     unit_price: "",
     units_in_stock: "",
-    units_on_order: "",
   });
 
   const [imageUrl, setImageUrl] = useState("");
@@ -156,13 +155,6 @@ function AddInventory() {
               value={inputs.units_in_stock}
               type="number"
               name="units_in_stock"
-              onChange={handleChange}
-            ></input>
-            <h3>Units on order</h3>
-            <input
-              value={inputs.units_on_order}
-              type="number"
-              name="units_on_order"
               onChange={handleChange}
             ></input>
 

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   function deleteAllCookies() {
@@ -13,9 +14,11 @@ function Profile() {
     }
   }
 
+  const navigate = useNavigate();
+
   return (
     <div className="profile">
-      <button>Change Password</button>
+      <button onClick={() => navigate("/User/Order")}>Orders</button>
       <button onClick={deleteAllCookies}>Logout</button>
     </div>
   );

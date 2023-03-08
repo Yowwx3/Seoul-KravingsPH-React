@@ -10,6 +10,15 @@ function Product() {
   const [product, setProduct] = useState({});
   const authCookie = Cookie.get("auth");
 
+  const startBounceAnimation = (event) => {
+    const button = event.target;
+    button.style.animation = "bounce 0.4s ease";
+
+    setTimeout(() => {
+      button.style.animation = "";
+    }, 500);
+  };
+
   useEffect(() => {
     axios
       .get(`http://localhost/seoulkravingsAPI/?product_id=${product_id}`)
@@ -59,7 +68,12 @@ function Product() {
                 {product.units_in_stock > 0 ? (
                   <>
                     &nbsp;
-                    <button onClick={() => handleAddToCart(product.product_id)}>
+                    <button
+                      onClick={(event) => {
+                        handleAddToCart(product.product_id);
+                        startBounceAnimation(event);
+                      }}
+                    >
                       Add to Cart
                     </button>
                     &nbsp;
@@ -79,7 +93,6 @@ function Product() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

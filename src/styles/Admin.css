@@ -36,7 +36,18 @@ section {
 }
 
 .formBx-crud {
-  padding: 70px;
+  padding: 50px;
+}
+
+section .cancel-filter2 {
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.3s ease-in-out;
+  text-align: left;
+}
+section .cancel-filter2:hover {
+  color: #e44c4c;
+  transform: translateY(-2px);
 }
 
 section .container-crud .formBx-crud form input {
@@ -113,6 +124,7 @@ input::-webkit-inner-spin-button {
 }
 
 .InventoryList {
+  animation: fadeIn 0.5s ease-in-out forwards;
   background-color: rgba(255, 255, 255, 0.9);
   margin: 10px auto;
   width: 90%;
@@ -175,6 +187,29 @@ td {
   font-weight: bold;
 }
 
+.low-stock {
+  border: 2px solid red;
+}
+
+.low-stock-message {
+  color: red;
+  text-align: right;
+  cursor: default;
+  animation: lowpulse 2.5s ease-in-out infinite;
+}
+
+@keyframes lowpulse {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @media only screen and (max-width: 1050px) {
   .container-crud {
     width: 100%;
@@ -200,7 +235,9 @@ td {
   .container-crud {
     width: 100%;
   }
-
+  .low-stock-message {
+    font-size: small;
+  }
   .crud-buttons-delete {
     font-size: x-small;
   }
@@ -209,5 +246,10 @@ td {
   }
   .admin-header {
     font-size: larger;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .admin-header {
+    font-size: medium;
   }
 }

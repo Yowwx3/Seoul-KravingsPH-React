@@ -29,6 +29,8 @@ import OrderSuccess from "./components/OrderSuccess";
 import Orders from "./components/Orders";
 import OrderDetails from "./components/OrderDetails";
 import Cancel from "./components/Cancel";
+import Order from "./components/Order";
+import OrderDetailsCus from "./components/OrderDetailsCust";
 
 function App() {
   const email = Cookie.get("email");
@@ -43,7 +45,7 @@ function App() {
     <div className="App">
       <React.Fragment>
         <Navbar />
-        {authCookie === "1" && <Admin />}
+        {(authCookie === "1" || authCookie === "2") && <Admin />}
         <Routes>
           <Route
             path="/"
@@ -53,6 +55,7 @@ function App() {
               </Home>
             }
           />
+          <Route path="*" element={<Navigate to="/" />} />
           <Route path="/Products" element={<Products />} />
           <Route path="/Product/:product_id" element={<Product />} />
           <Route path="/About Us" element={<About />} />
@@ -64,8 +67,10 @@ function App() {
           <Route path="/Cart" element={<Cart />} />
           <Route path="/Checkout" element={<Checkout />} />
           <Route path="/OrderSuccess" element={<OrderSuccess />} />
+          <Route path="/User/Order" element={<Order />} />
+          <Route path="/User/Order/:order_id" element={<OrderDetailsCus />} />
 
-          {authCookie === "1" && (
+          {(authCookie === "1" || authCookie === "2") && (
             <>
               <Route path="/Sales" element={<Sales />} />
               <Route path="/Sales/:order_id" element={<SalesDetails />} />

@@ -122,6 +122,50 @@ header .nav-btn {
   font-size: 2.5rem;
 }
 
+nav .dropdown .profile-link {
+  margin: 0 2rem;
+  color: var(--textColor);
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+nav .dropdown .profile-link:hover {
+  color: var(--secondaryColor);
+  transform: translateY(-2px);
+}
+
+nav .dropdown:hover .dropdown-list {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+nav .dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  padding: 20px 20px;
+  background-color: var(--mainColor);
+  color: var(--textColor);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+nav .dropdown-list a {
+  padding: 5px 20px;
+}
+
+nav .dropdown-container {
+  position: relative;
+}
+
 header div,
 nav {
   display: flex;
@@ -186,7 +230,9 @@ nav {
   nav a {
     font-size: 2rem;
   }
-
+  nav .dropdown .profile-link {
+    font-size: 2rem;
+  }
   header {
     font-size: 1.2rem;
   }

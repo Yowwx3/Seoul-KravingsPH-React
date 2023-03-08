@@ -114,7 +114,6 @@ function Products() {
             </div>
           ))}
       </div>
-      <Footer />
     </div>
   );
 }

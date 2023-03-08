@@ -27,6 +27,7 @@ function Login() {
           window.open("http://localhost:3000/", "_self");
         } else {
           console.log("Login failed: " + response.data.message);
+          alert("Login failed: " + response.data.message);
         }
       })
       .catch((error) => {
@@ -57,9 +58,6 @@ function Login() {
             <input type="submit" value="Log in" />
             <p className="signup">
               Don't have an account? <Link to="/Register">signup.</Link>
-            </p>
-            <p className="signup">
-              Forgot password? <Link to="">click here</Link>
             </p>
           </form>
         </div>

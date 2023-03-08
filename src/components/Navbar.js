@@ -1,5 +1,5 @@
 import { FaBars, FaTimes } from "react-icons/fa";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Cookie from "js-cookie";
 
@@ -9,13 +9,29 @@ function Navbar() {
   const username = Cookie.get("username");
   const authCookie = Cookie.get("auth");
 
+  function deleteAllCookies() {
+    const cookies = document.cookie.split(";");
+    localStorage.removeItem("cart");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i];
+      const eqPos = cookie.indexOf("=");
+      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+    window.open("http://localhost:3000/", "_self");
+  }
+
   const navRef = useRef();
+  const [showDropdown, setShowDropdown] = useState(true);
+
   const showNavbar = () => {
     navRef.current.classList.toggle("responsive_nav");
   };
+
   const hideNavbar = () => {
     navRef.current.classList.remove("responsive_nav");
   };
+
   return (
     <header>
       <h3>SEOUL K-RAVINGS PH</h3>
@@ -31,12 +47,22 @@ function Navbar() {
         </Link>
         {authCookie ? (
           <>
-            <Link to="/Cart" onClick={hideNavbar}>
-              Cart
-            </Link>
-            <Link to="/Profile" onClick={hideNavbar}>
-              Profile
-            </Link>
+            <div className="dropdown-container">
+              <div className="dropdown">
+                <div className="profile-link">Profile</div>
+                {showDropdown && (
+                  <div className="dropdown-list">
+                    <Link onClick={deleteAllCookies}>Logout</Link>
+                    <Link to="/User/Order" onClick={hideNavbar}>
+                      Orders
+                    </Link>
+                    <Link to="/Cart" onClick={hideNavbar}>
+                      Cart
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
           </>
         ) : (
           <Link to="/Login" onClick={hideNavbar}>

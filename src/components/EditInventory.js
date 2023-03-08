@@ -93,6 +93,7 @@ function AddInventory() {
     setImagePreview(null);
     setFile(null);
   };
+
   useEffect(() => {
     getProduct();
   }, []);
@@ -101,9 +102,11 @@ function AddInventory() {
     <section>
       <div className="container-crud">
         <div className="formBx-crud">
+          <h3 onClick={() => navigate("/Inventory")} className="cancel-filter2">
+            Back
+          </h3>
           <div>
             <h2>Edit Product</h2>
-
             {product_id && (
               <img
                 src={`http://localhost/seoulkravingsAPI/${imageUrl}`}

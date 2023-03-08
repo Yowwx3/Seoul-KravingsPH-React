@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Cookie from "js-cookie";
 
 function Inventory() {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const authCookie = parseInt(Cookie.get("auth"));
+
+  console.log(authCookie);
 
   useEffect(() => {
     getProducts();
@@ -42,6 +46,11 @@ function Inventory() {
             placeholder="Search by product name"
           />
         </div>
+        {products.some((product) => product.units_in_stock < 5) && (
+          <div className="low-stock-message">
+            Add more stocks to critically low level items.
+          </div>
+        )}
         <table>
           <thead>
             <tr>
@@ -65,17 +74,22 @@ function Inventory() {
                   .toLowerCase()
                   .includes(searchTerm.toLowerCase())
               )
+              .sort((a, b) => a.units_in_stock - b.units_in_stock)
               .map((product, key) => (
                 <tr key={key}>
                   <td>{product.product_id}</td>
                   <td>{product.product_name}</td>
-                  <td>{product.unit_price}</td>
+                  <td>₱{product.unit_price}</td>
                   <td>
                     {product.description.length > 40
                       ? `${product.description.substring(0, 40)}...`
                       : product.description}
                   </td>
-                  <td className={product.units_in_stock < 5 ? "low-stock" : ""}>
+                  <td
+                    className={`stock-quantity ${
+                      product.units_in_stock < 5 ? "low-stock" : ""
+                    }`}
+                  >
                     {product.units_in_stock}
                   </td>
                   <td>
@@ -86,20 +100,22 @@ function Inventory() {
                       Edit
                     </Link>
                     &nbsp;
-                    <button
-                      onClick={() => {
-                        if (
-                          window.confirm(
-                            "Are you sure you want to delete this product?"
-                          )
-                        ) {
-                          deleteProduct(product.product_id);
-                        }
-                      }}
-                      className="crud-buttons-delete"
-                    >
-                      Delete
-                    </button>
+                    {authCookie === 1 && (
+                      <button
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Are you sure you want to delete this product?"
+                            )
+                          ) {
+                            deleteProduct(product.product_id);
+                          }
+                        }}
+                        className="crud-buttons-delete"
+                      >
+                        Delete
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))}

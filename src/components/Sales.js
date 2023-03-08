@@ -5,8 +5,10 @@ import { useNavigate, useParams } from "react-router-dom";
 function Sales() {
   const navigate = useNavigate();
 
+  const [sales, setSales] = useState([]);
   const [orders, setOrders] = useState([]);
   const [selectedImage, setSelectedImage] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     axios
@@ -18,7 +20,17 @@ function Sales() {
       .catch((error) => console.log(error));
   }, []);
 
-  console.log("Orders:", orders);
+  useEffect(() => {
+    axios
+      .get("http://localhost/seoulkravingsAPI/sales.php")
+      .then((response) => {
+        console.log("Sales response:", response.data);
+        setSales(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  console.log("sales:", orders);
 
   const handleImageClick = (paymentProof, event) => {
     setSelectedImage(paymentProof);
@@ -47,39 +59,86 @@ function Sales() {
     navigate(`/Sales/${order_id}`);
   };
 
+  const filteredOrders = orders.filter(
+    (order) =>
+      order.order_id.toString().includes(searchTerm) ||
+      order.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <div className="orders-container">
-      <h1>Sales</h1>
-      {selectedImage && <Modal />}
-      <ul>
-        {orders
-          .filter((order) => order.status === "Completed")
-          .map((order) => (
-            <li
-              key={order.order_id}
-              onClick={() => handleDetails(order.order_id)}
-            >
-              <div>
-                {" "}
-                <p>Order ID: {order.order_id}</p>
-                <p>Email: {order.email}</p>
-                <p>Status: {order.status}</p>
-                <p>Total: ₱{order.total}</p>
-                <p>
-                  Order Date: {new Date(order.created_at).toLocaleDateString()}
-                </p>
-              </div>
-              <img
-                className="payment-proof-img"
-                src={`http://localhost/seoulkravingsAPI/${order.payment_proof}`}
-                alt="Payment Proof"
-                onClick={(event) =>
-                  handleImageClick(order.payment_proof, event)
-                }
-              />
-            </li>
-          ))}
-      </ul>
+      <div className="InventoryList">
+        <div>
+          <h1>Sales</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Quantity Sold</th>
+                <th>Total Sales</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sales.map((sale) => (
+                <tr key={sale.product_id}>
+                  <td>{sale.product_id}</td>
+                  <td>{sale.product_name}</td>
+                  <td>₱{sale.unit_price}</td>
+                  <td>{sale["Quantity Sold"]}</td>
+                  <td>₱{sale.unit_price * sale["Quantity Sold"]}.00</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <h1>Sales Receipts</h1>
+          <div className="search-container">
+            <input
+              type="text"
+              className="search-bar"
+              value={searchTerm}
+              onChange={handleSearch}
+              placeholder="Search by Order ID or Email"
+            />
+          </div>
+          {selectedImage && <Modal />}
+          <ul>
+            {filteredOrders
+              .filter((order) => order.status === "Completed")
+              .map((order) => (
+                <li
+                  key={order.order_id}
+                  onClick={() => handleDetails(order.order_id)}
+                >
+                  <div>
+                    {" "}
+                    <p>Order ID: {order.order_id}</p>
+                    <p>Email: {order.email}</p>
+                    <p>Status: {order.status}</p>
+                    <p>Total: ₱{order.total}</p>
+                    <p>
+                      Order Date:{" "}
+                      {new Date(order.created_at).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <img
+                    className="payment-proof-img"
+                    src={`http://localhost/seoulkravingsAPI/${order.payment_proof}`}
+                    alt="Payment Proof"
+                    onClick={(event) =>
+                      handleImageClick(order.payment_proof, event)
+                    }
+                  />
+                </li>
+              ))}
+          </ul>
+        </div>{" "}
+      </div>{" "}
     </div>
   );
 }

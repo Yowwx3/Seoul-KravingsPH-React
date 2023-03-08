@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 
-function OrderDetails() {
+function OrderDetailsCus() {
   const navigate = useNavigate();
 
   const { order_id } = useParams();
   const [orderDetails, setOrderDetails] = useState([]);
   const [selectedImage, setSelectedImage] = useState("");
   const [shippingFee, setShippingFee] = useState(0);
-  const [updatedStatus, setUpdatedStatus] = useState("");
 
   useEffect(() => {
     axios
@@ -46,39 +45,17 @@ function OrderDetails() {
   };
 
   const handleStatusUpdate = () => {
-    if (!updatedStatus) {
-      console.log("Status is already set to this value.");
-      return;
-    }
+    console.log("cancel");
+    orderDetails.forEach((order) => {
+      axios
+        .put("http://localhost/seoulkravingsAPI/cancel.php/", {
+          product_id: order.product_id,
+          quantity: order.quantity,
+        })
+        .then(console.log(order.product_id, order.quantity));
+    });
 
-    axios
-      .put(
-        `http://localhost/seoulkravingsAPI/monitor.php/?order_id=${order_id}`,
-        {
-          status: updatedStatus,
-        }
-      )
-      .then(function (response) {
-        console.log(updatedStatus);
-        console.log(response.data);
-
-        // If the status is "Canceled", update the inventory
-        if (updatedStatus === "Canceled") {
-          console.log("cancel");
-          orderDetails.forEach((order) => {
-            axios
-              .put("http://localhost/seoulkravingsAPI/cancel.php/", {
-                product_id: order.product_id,
-                quantity: order.quantity,
-              })
-              .then(console.log(order.product_id, order.quantity));
-          });
-        }
-        navigate("/Orders");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    navigate("/User/Order");
   };
 
   const Modal = () => {
@@ -98,7 +75,7 @@ function OrderDetails() {
   return (
     <div className="orders-container">
       {" "}
-      <h3 onClick={() => navigate("/Orders")} className="cancel-filter2">
+      <h3 onClick={() => navigate("/User/Order")} className="cancel-filter2">
         Back
       </h3>
       <div className="order-container">
@@ -117,39 +94,21 @@ function OrderDetails() {
                   {new Date(orderDetails[0].created_at).toLocaleDateString()}
                 </p>
                 <div className="column">
-                  {" "}
-                  <p>
-                    Status:{" "}
-                    <select
-                      value={updatedStatus}
-                      onChange={(e) => setUpdatedStatus(e.target.value)}
+                  <p>Status: {orderDetails[0].status} </p>
+                  {orderDetails[0].status === "Processing" && (
+                    <h3
+                      className="cancel-status-button"
+                      onClick={() => {
+                        if (
+                          window.confirm("Are you sure you want to cancel?")
+                        ) {
+                          handleStatusUpdate();
+                        }
+                      }}
                     >
-                      <option value={orderDetails[0].status}>
-                        {orderDetails[0].status}
-                      </option>
-                      {orderDetails[0].status !== "Processing" && (
-                        <option value="Processing">Processing</option>
-                      )}
-                      {orderDetails[0].status !== "Shipped" && (
-                        <option value="Shipped">Shipped</option>
-                      )}
-                      {orderDetails[0].status !== "Delayed" && (
-                        <option value="Delayed">Delayed</option>
-                      )}
-                      {orderDetails[0].status !== "Completed" && (
-                        <option value="Completed">Completed</option>
-                      )}
-                      {orderDetails[0].status !== "Canceled" && (
-                        <option value="Canceled">Canceled</option>
-                      )}
-                    </select>
-                  </p>
-                  <h3
-                    className="update-status-button"
-                    onClick={handleStatusUpdate}
-                  >
-                    Update Status
-                  </h3>
+                      Cancel
+                    </h3>
+                  )}
                 </div>
               </div>
               <img
@@ -203,4 +162,4 @@ function OrderDetails() {
   );
 }
 
-export default OrderDetails;
+export default OrderDetailsCus;

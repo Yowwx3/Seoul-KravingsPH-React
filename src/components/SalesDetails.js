@@ -123,7 +123,9 @@ function SalesDetails() {
                   <div className="Ordered-Item-Name">
                     {" "}
                     <p>Product: {order.product_name}</p>
-                    <p>Price: ₱ {order.unit_price * order.quantity}</p>
+                    <p className="price">
+                      Price: ₱{order.unit_price * order.quantity}
+                    </p>
                   </div>
                   <div className="Ordered-Item-Price">
                     {" "}

@@ -8,6 +8,7 @@ function Orders() {
   const [orders, setOrders] = useState([]);
   const [selectedImage, setSelectedImage] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     axios
@@ -67,6 +68,18 @@ function Orders() {
     );
   }
 
+  if (searchTerm !== "") {
+    filteredOrders = filteredOrders.filter(
+      (order) =>
+        order.order_id.toString().includes(searchTerm) ||
+        order.email.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   const handleClearFilter = () => {
     setSelectedFilter("");
   };
@@ -78,6 +91,7 @@ function Orders() {
       ) : (
         <h1>Orders - All</h1>
       )}
+
       <div className="orders-filter">
         <h3
           className={selectedFilter === "" ? "active-filter" : ""}
@@ -111,6 +125,15 @@ function Orders() {
         </h3>
       </div>
 
+      <div className="search-container">
+        <input
+          type="text"
+          className="search-bar"
+          value={searchTerm}
+          onChange={handleSearch}
+          placeholder="Search by Order ID or Email"
+        />
+      </div>
       {selectedImage && <Modal />}
       <ul>
         {filteredOrders

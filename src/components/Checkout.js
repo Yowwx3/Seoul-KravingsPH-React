@@ -43,6 +43,7 @@ const Checkout = () => {
 
   const [products, setProducts] = useState([]);
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
+  const [showPolicyModal, setShowPolicyModal] = useState(false);
 
   const [selectedPayment, setSelectedPayment] = useState("");
   const [image, setImage] = useState("");
@@ -103,6 +104,10 @@ const Checkout = () => {
 
   const handlePlaceOrder = () => {
     setShowPaymentPopup(true);
+  };
+
+  const policy = () => {
+    setShowPolicyModal(true);
   };
 
   const modalRef = useRef();
@@ -232,13 +237,15 @@ const Checkout = () => {
                       </h2>
                     </div>
                   )}
-                  <h2 className="Gcash-Submit">
-                    <img
-                      className="payment-method-img"
-                      src={paypal}
-                      alt="PayPal"
-                    />
-                  </h2>
+                  Please read the{" "}
+                  <span
+                    className="policy-click"
+                    onClick={() => setShowPolicyModal(true)}
+                  >
+                    Order Policy{" "}
+                  </span>
+                  <br />
+                  before placing an order
                   <h2
                     className="Gcash-Submit"
                     onClick={() => {
@@ -264,6 +271,67 @@ const Checkout = () => {
                 </div>
               </div>
             )}{" "}
+            {showPolicyModal && (
+              <div className="modal">
+                <div className="modal-content">
+                  Order Policy <hr />
+                  <div className="Order-Policy">
+                    {" "}
+                    <h3>Order Placement:</h3>
+                    <p>
+                      Customers can place orders for products through the web
+                      application. Upon order placement, customers will be able
+                      to view and monitor their order on the "Orders" section in
+                      their account profile. This section will provide them with
+                      the details of their order, as well as any updates on its
+                      status.
+                    </p>
+                    <h3>Cancellation:</h3>
+                    <p>
+                      {" "}
+                      Customers can cancel their order at any time before it is
+                      processed. If the status of the order is "Processing" on
+                      the order monitoring module for the customer, they can
+                      still cancel their order. However, once the order status
+                      is updated to "Delayed" or "Shipped", the customer cannot
+                      cancel their order.
+                    </p>
+                    <h3>Proof of Payment:</h3>
+                    <p>
+                      Customers are required to upload a valid proof of payment
+                      when placing an order. In case of a wrong uploaded image
+                      of proof of payment, the order will be canceled.
+                    </p>
+                    <h3>Refunds:</h3>
+                    <p>
+                      Canceled orders that have already been paid for will be
+                      refunded in an appropriate time. The refund process will
+                      be initiated within 7 business days of the order
+                      cancellation. The refund amount will be credited to the
+                      customer's account through the same mode of payment used
+                      during the order placement.{" "}
+                    </p>
+                    <h3>Note:</h3>
+                    <p>
+                      {" "}
+                      We reserve the right to cancel any order if we are unable
+                      to fulfill it due to unavailability of stock, pricing
+                      errors, or any other reasons beyond our control. In such
+                      cases, we will inform the customer of the cancellation and
+                      initiate the refund process.
+                    </p>
+                  </div>
+                  <h2
+                    onClick={() => {
+                      setShowPolicyModal(false);
+                    }}
+                    className="Cart-Submit2"
+                  >
+                    Back
+                  </h2>
+                </div>
+              </div>
+            )}
             <h3 className="Cart-Total">
               Shipping Fee: <span style={{ color: "red" }}>₱60</span>
             </h3>

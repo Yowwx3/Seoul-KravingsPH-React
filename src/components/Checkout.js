@@ -198,8 +198,13 @@ const Checkout = () => {
                 </div>
 
                 <div className="Cart-Item-Price">
-                  Price: ₱
-                  {product.unit_price * (quantities[product.product_id] || 1)}
+                  Price:
+                  {parseFloat(
+                    product.unit_price * (quantities[product.product_id] || 1)
+                  ).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "PHP",
+                  })}
                 </div>
               </div>
             </div>
@@ -222,6 +227,15 @@ const Checkout = () => {
                   {selectedPayment === "gcash" && (
                     <div className="gcash-container">
                       <img className="GCash-QR" src={gcashqr} />
+                      <h2 className="Cart-Total">
+                        Total:{" "}
+                        <span style={{ color: "red" }}>
+                          {parseFloat(total).toLocaleString("en-US", {
+                            style: "currency",
+                            currency: "PHP",
+                          })}
+                        </span>
+                      </h2>
                       <h3>Upload the GCash receipt here.</h3>
                       <input
                         type="file"
@@ -333,10 +347,16 @@ const Checkout = () => {
               </div>
             )}
             <h3 className="Cart-Total">
-              Shipping Fee: <span style={{ color: "red" }}>₱60</span>
+              Shipping Fee: <span style={{ color: "red" }}>₱60.00</span>
             </h3>
             <h2 className="Cart-Total">
-              Total: <span style={{ color: "red" }}>₱{total}</span>
+              Total:{" "}
+              <span style={{ color: "red" }}>
+                {parseFloat(total).toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "PHP",
+                })}
+              </span>
             </h2>
             <div className="Cart-Total-Container-Row">
               {" "}

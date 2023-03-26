@@ -65,6 +65,8 @@ function Register() {
               name="password"
               placeholder="Password"
               onChange={handleChange}
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+              title="Password must be at least 8 characters with an uppercase, lowercase, and a number"
               required
             />
             <input
@@ -74,6 +76,7 @@ function Register() {
               onChange={handleChange}
               required
             />
+
             <label className="data-privacy-checkbox">
               <input
                 type="checkbox"

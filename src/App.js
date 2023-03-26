@@ -3,7 +3,6 @@ import "./styles/Login.css";
 import "./styles/Admin.css";
 import "./styles/products.css";
 import "./styles/orders.css";
-import React from "react";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Products from "./components/Products";
@@ -21,25 +20,22 @@ import EditInventory from "./components/EditInventory";
 import Insights from "./components/Insights";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
-import { Route, Routes, useParams } from "react-router-dom";
 import PrivacyNotice from "./components/PrivacyNotice";
-import Cookie from "js-cookie";
-import { HmacSHA256 } from "crypto-js";
 import OrderSuccess from "./components/OrderSuccess";
 import Orders from "./components/Orders";
 import OrderDetails from "./components/OrderDetails";
 import Cancel from "./components/Cancel";
 import Order from "./components/Order";
 import OrderDetailsCus from "./components/OrderDetailsCust";
+import React from "react";
+import Cookie from "js-cookie";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const email = Cookie.get("email");
   const username = Cookie.get("username");
   const secretKey = "hellohello123";
   const authCookie = Cookie.get("auth");
-
-  const decryptedAuth = HmacSHA256(authCookie, secretKey).toString();
-  console.log(decryptedAuth);
 
   return (
     <div className="App">
@@ -55,7 +51,7 @@ function App() {
               </Home>
             }
           />
-          <Route path="*" element={<Navigate to="/" />} />
+
           <Route path="/Products" element={<Products />} />
           <Route path="/Product/:product_id" element={<Product />} />
           <Route path="/About Us" element={<About />} />

@@ -79,9 +79,9 @@ function Sales() {
               <tr>
                 <th>Product ID</th>
                 <th>Product Name</th>
-                <th>Unit Price</th>
+                <th className="php">Unit Price</th>
                 <th>Quantity Sold</th>
-                <th>Total Sales</th>
+                <th className="php">Total Sales</th>
               </tr>
             </thead>
             <tbody>
@@ -89,9 +89,22 @@ function Sales() {
                 <tr key={sale.product_id}>
                   <td>{sale.product_id}</td>
                   <td>{sale.product_name}</td>
-                  <td>₱{sale.unit_price}</td>
+                  <td className="php">
+                    {parseFloat(sale.unit_price).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "PHP",
+                    })}
+                  </td>
+
                   <td>{sale["Quantity Sold"]}</td>
-                  <td>₱{sale.unit_price * sale["Quantity Sold"]}.00</td>
+                  <td className="php">
+                    {parseFloat(
+                      sale.unit_price * sale["Quantity Sold"]
+                    ).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "PHP",
+                    })}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -120,7 +133,13 @@ function Sales() {
                     <p>Order ID: {order.order_id}</p>
                     <p>Email: {order.email}</p>
                     <p>Status: {order.status}</p>
-                    <p>Total: ₱{order.total}</p>
+                    <p>
+                      Total:
+                      {parseFloat(order.total).toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "PHP",
+                      })}
+                    </p>{" "}
                     <p>
                       Order Date:{" "}
                       {new Date(order.created_at).toLocaleDateString()}

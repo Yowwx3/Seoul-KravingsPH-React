@@ -519,6 +519,9 @@
 }
 
 @media only screen and (max-width: 1050px) {
+  .product {
+    padding: 0;
+  }
   .Cart-Container {
     width: 100%;
   }

@@ -152,7 +152,13 @@ function Orders() {
                 <p>Order ID: {order.order_id}</p>
                 <p>Email: {order.email}</p>
                 <p>Status: {order.status}</p>
-                <p>Total: ₱{order.total}</p>
+                <p>
+                  Total:{" "}
+                  {parseFloat(order.total).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "PHP",
+                  })}
+                </p>
                 <p>
                   Order Date: {new Date(order.created_at).toLocaleDateString()}
                 </p>

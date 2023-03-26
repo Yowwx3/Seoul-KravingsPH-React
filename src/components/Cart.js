@@ -118,9 +118,15 @@ const Cart = () => {
                 }
               />
               <h4 className="unit-total">
-                Total:₱
-                {product.unit_price * (quantities[product.product_id] || 1)}
+                Total:
+                {parseFloat(
+                  product.unit_price * (quantities[product.product_id] || 1)
+                ).toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "PHP",
+                })}
               </h4>
+
               <h4
                 className="unit-remove"
                 onClick={() => removeItemFromCart(product.product_id)}
@@ -134,8 +140,15 @@ const Cart = () => {
               <hr />
               <div className="Cart-Total-Container">
                 <h2 className="Cart-Total">
-                  Sub-Total: <span style={{ color: "red" }}>₱{total}</span>
+                  Sub-Total:{" "}
+                  <span style={{ color: "red" }}>
+                    {parseFloat(total).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "PHP",
+                    })}
+                  </span>
                 </h2>
+
                 <h2
                   onClick={() => {
                     // Check if all products in cart have a quantity value, set to 1 if not

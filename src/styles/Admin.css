@@ -153,6 +153,11 @@ td {
   border-bottom: 1px solid #ddd;
 }
 
+.InventoryList .php {
+  padding-right: 30px;
+  text-align: end;
+}
+
 .InventoryList th {
   padding: 15px 0;
 }
@@ -196,6 +201,10 @@ td {
   text-align: right;
   cursor: default;
   animation: lowpulse 2.5s ease-in-out infinite;
+}
+
+.top-product {
+  border: 2px groove rgb(244, 217, 166);
 }
 
 @keyframes lowpulse {

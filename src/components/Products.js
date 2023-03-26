@@ -98,7 +98,12 @@ function Products() {
                   ? `${product.product_name.substring(0, 20)}...`
                   : product.product_name}
               </h3>
-              <p>₱{product.unit_price}</p>
+              <p>
+                {parseFloat(product.unit_price).toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "PHP",
+                })}
+              </p>
               {product.units_in_stock > 0 ? (
                 <input
                   type="submit"

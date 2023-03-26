@@ -111,7 +111,14 @@ function OrderDetails() {
                 <h3>Order Details</h3>
                 <p>Order ID: {orderDetails[0].order_id}</p>
                 <p>Email: {orderDetails[0].email}</p>
-                <p>Total: ₱{orderDetails[0].total}</p>
+                <p>
+                  Total:{" "}
+                  {parseFloat(orderDetails[0].total).toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "PHP",
+                  })}
+                </p>
+
                 <p>
                   Order Date:{" "}
                   {new Date(orderDetails[0].created_at).toLocaleDateString()}
@@ -153,7 +160,7 @@ function OrderDetails() {
                 </div>
               </div>
               <img
-                className="payment-proof-img"
+                className="payment-proof-img1"
                 src={`http://localhost/seoulkravingsAPI/${orderDetails[0].payment_proof}`}
                 alt="Payment Proof"
                 onClick={() => handleImageClick(orderDetails[0].payment_proof)}
@@ -179,7 +186,12 @@ function OrderDetails() {
                       {" "}
                       <p>Product: {order.product_name}</p>
                       <p className="price">
-                        Price: ₱{order.unit_price * order.quantity}
+                        {parseFloat(
+                          order.unit_price * order.quantity
+                        ).toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "PHP",
+                        })}
                       </p>
                     </div>
                     <div className="Ordered-Item-Price">
@@ -191,8 +203,20 @@ function OrderDetails() {
                 <div className="order-total">
                   {" "}
                   <hr />
-                  <p>Shipping Fee: ₱{shippingFee.toFixed(2)}</p>
-                  <h3>Total: ₱{orderDetails[0].total}</h3>
+                  <p>
+                    Shipping Fee:{" "}
+                    {shippingFee.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "PHP",
+                    })}
+                  </p>
+                  <h3>
+                    Total:{" "}
+                    {parseFloat(orderDetails[0].total).toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "PHP",
+                    })}
+                  </h3>
                 </div>
               </div>
             </div>

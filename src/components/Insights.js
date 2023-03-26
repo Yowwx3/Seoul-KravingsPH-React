@@ -3,11 +3,18 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Chart } from "chart.js/auto";
 
-function Product({ name, quantity, image }) {
+function Product({ name, quantity, image, unit_price }) {
+  const totalPrice = quantity * unit_price;
+  const formattedPrice = totalPrice.toLocaleString("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
+
   return (
     <div className="col2-div">
       <h3>{name}</h3>
       <p>Total Quantity Sold: {quantity}</p>
+      <p>Total Sales {formattedPrice}</p>
       <img
         className="top-image"
         src={`http://localhost/seoulkravingsAPI/${image}`}
@@ -51,7 +58,18 @@ function Insights() {
     0
   );
 
+  const formattedTotalSales = totalSales.toLocaleString("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
+
   const averageSales = totalSales / completedSales.length;
+
+  const formatedAverageSales = averageSales.toLocaleString("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
+
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentWeek = Math.floor(
@@ -84,6 +102,16 @@ function Insights() {
       0
     ) / weeklySales.length;
 
+  const formatedMonthlyAvgSales = monthlyAvgSales.toLocaleString("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
+
+  const formatedWeeklyAvgSales = weeklyAvgSales.toLocaleString("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
+
   const totalWeeklySales = weeklySales.reduce(
     (total, weeklySale) => total + parseFloat(weeklySale.total),
     0
@@ -93,6 +121,16 @@ function Insights() {
     (total, monthlySale) => total + parseFloat(monthlySale.total),
     0
   );
+
+  const formatedTotalMonthlySales = totalMonthlySales.toLocaleString("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
+
+  const formatedTotalWeeklySales = totalWeeklySales.toLocaleString("en-US", {
+    style: "currency",
+    currency: "PHP",
+  });
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -220,27 +258,21 @@ function Insights() {
               AVG Sales{" "}
               <p>
                 total{" "}
-                <span style={{ color: "red" }}>
-                  ₱{`${averageSales.toFixed(2)}`}
-                </span>
+                <span style={{ color: "red" }}>{formatedAverageSales}</span>
               </p>
             </h2>
             <h2>
               AVG Sales{" "}
               <p>
                 by month{" "}
-                <span style={{ color: "red" }}>
-                  ₱{`${monthlyAvgSales.toFixed(2)}`}
-                </span>
+                <span style={{ color: "red" }}>{formatedMonthlyAvgSales}</span>
               </p>
             </h2>
             <h2>
               AVG Sales{" "}
               <p>
                 by week{" "}
-                <span style={{ color: "red" }}>
-                  ₱{`${weeklyAvgSales.toFixed(2)}`}
-                </span>
+                <span style={{ color: "red" }}>{formatedWeeklyAvgSales}</span>
               </p>
             </h2>
           </div>
@@ -251,9 +283,7 @@ function Insights() {
             Total Sales{" "}
             <p>
               {" "}
-              <span style={{ color: "red" }}>
-                ₱{`${totalSales.toFixed(2)}`}
-              </span>
+              <span style={{ color: "red" }}>{formattedTotalSales}</span>
             </p>
           </h1>
           <canvas className="chart" ref={canvasRef}></canvas>
@@ -261,9 +291,7 @@ function Insights() {
             Month Sales{" "}
             <p>
               {" "}
-              <span style={{ color: "red" }}>
-                ₱{`${totalMonthlySales.toFixed(2)}`}
-              </span>
+              <span style={{ color: "red" }}>{formatedTotalMonthlySales}</span>
             </p>
           </h1>
           <canvas className="chart" ref={monthCanvasRef}></canvas>
@@ -271,9 +299,7 @@ function Insights() {
             Week Sales{" "}
             <p>
               {" "}
-              <span style={{ color: "red" }}>
-                ₱{`${totalWeeklySales.toFixed(2)}`}
-              </span>
+              <span style={{ color: "red" }}>{formatedTotalWeeklySales}</span>
             </p>
           </h1>
           <canvas className="chart" ref={weekCanvasRef}></canvas>
@@ -287,6 +313,7 @@ function Insights() {
             <Product
               key={product.product_id}
               name={product.product_name}
+              unit_price={product.unit_price}
               quantity={product.total_quantity}
               image={product.image}
             />

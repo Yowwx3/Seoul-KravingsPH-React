@@ -47,6 +47,9 @@ function Product() {
 
   return (
     <div className="product-container">
+      <h3 onClick={() => navigate("/Products")} className="cancel-filter3">
+        Back
+      </h3>
       <div className="product">
         <div className="small-container">
           <div className="row">
@@ -63,7 +66,12 @@ function Product() {
             <div className="col-2">
               {" "}
               <h1>{product.product_name}</h1>
-              <h2>₱{product.unit_price}</h2>
+              <h2>
+                {parseFloat(product.unit_price).toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "PHP",
+                })}
+              </h2>
               <div className="add-to-cart">
                 {product.units_in_stock > 0 ? (
                   <>
